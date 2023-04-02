@@ -112,6 +112,33 @@
 ---
 
 ## IDEA
+
+### Methods/Engines
+To have a running service in the production we need to pass some steps:
+- Build and push images to registry
+- Deploy service
+- Test service
+If we want to catagorize these steps we can have 3 methods or engines and have a `justfile` for each method:
+- `builder` -> Responsible for build and push images to registry
+- `deployer` -> Responsible for deploy service
+- `tester` -> Responsible for test service
+
+We can have different implementations for each method based on the technologies and tools that we use. For instance we can have `skaffold.just` as `builder` method and `k8s.just` as `deployer` method.
+
+Our `methods` which are `justfiles` should provide `high level and public targets`:
+  - `plan` -> from `deployer`
+  - `apply` -> form `deployer`
+  - `build` -> from `builder`
+  - `integration-tests` -> from `tester`
+  - `render` -> from `deployer`
+  - others -> from different files
+
+### Componenet
+`Componenets` are `justfiles` that are bound to specific technology and tool. They provide `just targets` for functionaliy of that technology and tool.
+For instance `gitops.just` is a compnent that provides `just targets` for `gitops` functionality. (e.g. `gitops-repo-clone`)
+
+We can combine and use different `components` to create `builder,deployer and tester` methods to provide high level `just targets`.
+
 ### Justfiles that we need
 Here we will use `differenet just files` as components for creating `just files` for `builder` , `deployer` and `tester` methods.
   - Create a `just file` for `builder method`
@@ -141,14 +168,6 @@ tester --> k8s-karate.just;
 tester --> terraform-karate.just;
 tester --> performance.just;
 ```
-
-### Justfile in Service Directory
-  - `plan` -> from `deployer`
-  - `apply` -> form `deployer`
-  - `build` -> from `builder`
-  - `integration-tests` -> from `test framework`
-  - `render` -> from `deployer`
-  - others -> from different files
 
 ### How we use justfiles in service directory
 
