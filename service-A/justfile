@@ -1,0 +1,14 @@
+set export
+set shell := ["bash", "-euo", "pipefail", "-c"]
+
+BUILD_JUST_PATH := "../ci/build.just"
+JUST_BUILD_CMD := "just --justfile $BUILD_JUST_PATH"
+
+K8S_JUST_PATH := "../ci/k8s.just"
+JUST_K8S_CMD := "just --justfile $K8S_JUST_PATH"
+
+build:
+  {{JUST_BUILD_CMD}} build
+
+apply:
+  {{JUST_K8S_CMD}} apply
