@@ -118,6 +118,7 @@ To have a running service in the production we need to pass some steps:
 - Build and push images to registry
 - Deploy service
 - Test service
+
 If we want to catagorize these steps we can have 3 methods or engines and have a `justfile` for each method:
 - `builder` -> Responsible for build and push images to registry
 - `deployer` -> Responsible for deploy service
